@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNO Multiplayer - Room Lobby</title>
+    <link rel="stylesheet" href="lobby.css">
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="uno-bg"></div>
+    <div class="dark-overlay"></div>
+    <div class="lobby-container">
+        <button id="shareRoomBtn" class="share-btn">
+            📤
+        </button>
+
+        <h1 class="title">UNO Lobby</h1>
+        <h2 id="room-id" class="room-code"></h2>
+        <h3 id="pass" class="room-code"></h3>
+
+        <!-- Player List Box -->
+        <div class="lobby-box">
+
+            <!-- Tabs -->
+            <div class="lobby-tabs">
+                <button id="playersTab" class="tab-btn active">Players</button>
+                <button id="settingsTab" class="tab-btn">Settings</button>
+            </div>
+
+            <!-- Players Content -->
+            <p id="count" class="player-count"></p>
+            <div id="playersContent" class="tab-content active">
+                <div id="player-list" class="player-list"></div>
+            </div>
+
+            <!-- Settings Content -->
+            <div id="settingsContent" class="tab-content">
+                <div class="setting-item" id="cardNo">
+                    <label>Starting Cards</label>
+                    <div class="number-control">
+                        <button id="minusCards" class="num-btn">−</button>
+                        <input type="number" id="startCards" value="7" min="7" max="14" readonly />
+                        <button id="plusCards" class="num-btn">+</button>
+                    </div>
+                    <small class="hint">Min 7 • Max 14</small>
+                </div>
+                <div class="settings-box">
+                    <h3>Special Cards</h3>
+
+                    <label>
+                        <input type="checkbox" id="enableShuffle">
+                        🌀 Shuffle Hands
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="enableSkipAll">
+                        ⛔ Skip All
+                    </label>
+                </div>
+
+            </div>
+
+        </div>
+
+        <p id="count" class="player-count"></p>
+
+        <!-- Buttons -->
+        <button id="startBtn" class="main-btn green-btn" style="display:none;">Start Game</button>
+        <button id="exitBtn" class="main-btn red-btn">Exit Room</button>
+
+    </div>
+    <!-- EXIT ROOM MODAL -->
+    <div id="exitModal" class="modal hidden">
+        <div class="modal-box">
+            <h3 id="modalTitle">Exit Room</h3>
+            <p id="modalMessage"></p>
+
+            <div id="modalActions" class="modal-actions">
+                <!-- buttons injected dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script src="firebase-config.js" type="module"></script>
+    <script src="lobby.js" type="module"></script>
+</body>
+
+</html>

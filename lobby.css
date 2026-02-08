@@ -1,0 +1,449 @@
+/* ------------------- BASE ------------------- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Poppins, sans-serif;
+    background: #111;
+    overflow-x: hidden;
+}
+
+/* ------------------- LOBBY CARD ------------------- */
+.lobby-container {
+    width: 350px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    border-radius: 20px;
+    background: transparent;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    border: 1px solid whitesmoke ;
+}
+
+
+/* ------------------- ROOM CODE ------------------- */
+.room-code {
+    font-size: 22px;
+    font-weight: bold;
+    color: #e63946;
+    margin-bottom: 15px;
+}
+/* ------------------- PLAYERS + SETTINGS BOX ------------------- */
+.lobby-box {
+    background: transparent;
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #2ecc71;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+
+}
+.title{
+    color: white;
+}
+/* ---------------Share Btn */
+.share-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.share-btn:hover {
+  background: #43a047;
+}
+
+
+/* ------------------- TABS ------------------- */
+.lobby-tabs {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px;
+    background: #f1f1f1;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 8px 8px 0 0;
+}
+
+.tab-btn.active {
+    background: blue;
+    color: white;
+}
+
+/* ------------------- TAB CONTENT ------------------- */
+.tab-content {
+    display: none;
+    flex: 1;
+    overflow-y: auto;
+    /* BOTH tabs scroll */
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* ------------------- PLAYER LIST ------------------- */
+.player-list {
+    flex: 1;
+    /* take remaining space */
+    overflow-y: auto;
+    padding: 10px;
+}
+
+/* Each player row */
+.player-list div {
+    background: #f7f7f7;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 6px solid #f1c40f;
+}
+
+/* Player count */
+.player-count {
+    font-size: 16px;
+    color: green;
+    margin-top: 8px;
+    margin-bottom: -5px;
+}
+
+/* ------------------- SETTINGS ------------------- */
+.setting-item {
+    margin: 12px 0;
+    text-align: left;
+    font-weight: 600;
+    color: whitesmoke;
+}
+
+.setting-item label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.setting-item select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+}
+.settings-box{
+    color: white;
+}
+/* Number of cards */
+.number-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.num-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #e63946;
+    color: white;
+}
+
+.num-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.number-control input {
+    width: 60px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 5px;
+    background: white;
+}
+
+.hint {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #555;
+}
+
+/* ------------------- BUTTONS ------------------- */
+.main-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 17px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    margin: 10px 0;
+    font-weight: 600;
+}
+
+.red-btn {
+    background: red;
+    color: white;
+}
+
+.green-btn {
+    background: #2ecc71;
+}
+
+.yellow-btn {
+    background: #f1c40f;
+}
+
+.blue-btn {
+    background: #2980b9;
+    color: white;
+}
+
+/* Kick button */
+.kick-btn {
+    background: red;
+    border: none;
+    border-radius: 5px;
+    padding: 4px 8px;
+    cursor: pointer;
+    color: white;
+}
+
+/* ------------------- BACKGROUND ------------------- */
+.uno-bg {
+    position: fixed;
+    inset: 0;
+    background-image: url("./assets/uno-bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    filter: blur(2px) brightness(0.7);
+    opacity: 0.35;
+    z-index: -2;
+}
+
+.dark-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: -1;
+}
+
+/* ---------------- MODAL ---------------- */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-box {
+    background: white;
+    width: 300px;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.modal-box h3 {
+    margin-bottom: 10px;
+    color: red;
+}
+
+.modal-box p {
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-actions button {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.modal-actions .danger {
+    background: red;
+    color: white;
+}
+
+.modal-actions .safe {
+    background: #2ecc71;
+}
+
+.modal-actions .neutral {
+    background: #ccc;
+}
+/* =====================================
+   MOBILE APP SCALE FIX (UI POLISH)
+   ===================================== */
+@media (max-width: 768px) {
+
+    /* Global font scale */
+    body {
+        font-size: 14px;
+    }
+
+    /* Lobby card tighter */
+    .lobby-container {
+        width: 80%;
+        max-width: 290px;
+        height: 78vh;
+        padding: 14px;
+        border-radius: 18px;
+    }
+
+    /* Title */
+    h1, h2 {
+        font-size: 30px;
+        margin-bottom: 6px;
+        color: white;
+    }
+
+    /* Room ID / password */
+    .room-code {
+        font-size: 14px;
+        margin-bottom: 6px;
+        opacity: 0.9;
+    }
+
+    /* Tabs */
+    .tab-btn {
+        padding: 7px;
+        font-size: 13px;
+    }
+    .tab-btn.active{
+        background: #1e3cff;
+    }
+
+    /* Lobby box */
+    .lobby-box {
+        padding: 8px;
+        height: 60%;
+        margin-bottom: 10px;
+        border-width: 1.5px;
+    }
+    .tab-content{
+        padding-bottom: 4px;
+    }
+    /* Player rows */
+    .player-list div {
+        font-size: 14px;
+        padding: 8px;
+        margin: 6px 0;
+        border-radius: 8px;
+    }
+
+    /* Player count */
+    .player-count {
+        font-size: 13px;
+        margin-top: 6px;
+        color: #2ecc71;
+    }
+
+    /* Settings labels */
+    .setting-item {
+        margin: 8px 0;
+        font-size: 14px;
+        color: white;
+    }
+
+    .setting-item label {
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 4px;
+    }
+
+    /* Select dropdown */
+    .setting-item select {
+        padding: 6px;
+        font-size: 14px;
+        border-radius: 6px;
+    }
+
+    /* Number control */
+    .number-control {
+        gap: 8px;
+    }
+
+    .num-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 18px;
+    }
+
+    .number-control input {
+        width: 50px;
+        font-size: 16px;
+        padding: 4px;
+    }
+
+    .hint {
+        font-size: 11px;
+    }
+
+    /* Buttons (app-sized, not web-sized) */
+    .main-btn {
+        padding: 12px;
+        font-size: 15px;
+        margin: 6px 0;
+        border-radius: 10px;
+    }
+
+    /* Modal */
+    .modal-box {
+        width: 85%;
+        max-width: 280px;
+        padding: 16px;
+    }
+
+    .modal-box h3 {
+        font-size: 16px;
+    }
+
+    .modal-box p {
+        font-size: 13px;
+    }
+}

@@ -1,0 +1,1107 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Poppins, sans-serif;
+  background: #111;
+  overflow-x: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+
+/* REAL UNO CARDS BACKGROUND */
+.uno-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("./assets/uno-bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  /* FIXED WIDTH & HEIGHT of the image inside background */
+  background-size: cover;
+  /* width = 500px, height auto */
+  filter: blur(5px) brightness(0.7);
+  opacity: 0.35;
+  z-index: -2;
+}
+
+/* DARK OVERLAY for visibility */
+.dark-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: -1;
+}
+
+/* ---- REUSABLE UI STYLES ---- */
+.red-btn {
+  background: #ff4040;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 12px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.yellow-btn {
+  background: #ffcc00;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 12px;
+  color: black;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#roomIdDisplay {
+  color: yellow;
+  margin-left: 2%;
+}
+
+.card-box {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+
+
+.my-turn-bar {
+  position: absolute;
+  bottom: 230px;
+  left: 50%;
+  width: 30%;
+  transform: translateX(-50%);
+  height: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 200;
+}
+
+.my-turn-bar-fill {
+  height: 100%;
+  width: 100%;
+  background: #00ff88;
+  transition: width 1s linear;
+}
+
+.my-turn-bar-fill.danger {
+  background: #ff4444;
+}
+
+@keyframes flashTurn {
+  0% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.3;
+  }
+}
+
+/* ===================================================================================== */
+/* ---- TURN TEXT ---- */
+.turn-indicator {
+  position: absolute;
+  top: -40px;
+  width: 100%;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* ========================================= */
+.center-area {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  backdrop-filter: none;
+  box-shadow: none;
+  padding: 15px 25px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  border-radius: var(--box-radius);
+}
+
+.pile {
+  position: relative;
+  width: 90px;
+  height: 130px;
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow:
+    0 6px 14px rgba(0, 0, 0, 0.7),
+    inset 0 0 0 3px rgba(255, 255, 255, 0.85);
+
+  overflow: hidden;
+}
+
+#discardPile .card {
+  margin-left: 0;
+  transform: none;
+  cursor: default;
+  width: 85px;
+  height: 120px;
+}
+
+#discardPile .card-center {
+  font-size: 34px;
+  font-weight: 900;
+}
+
+#discardPile .corner {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+#discardPile .card-center {
+  transform: rotate(-6deg);
+}
+
+#drawPile {
+  margin-left: -150px;
+  background: black;
+  cursor: pointer;
+  width: 70px;
+  height: 90px;
+}
+
+#drawPile .deck-oval {
+  position: absolute;
+  width: 80%;
+  height: 95%;
+  border-radius: 50%;
+  background: #e53935;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(25deg);
+
+  z-index: 1;
+}
+
+#drawPile .deck-text {
+  position: relative;
+  z-index: 2;
+
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 2px;
+
+  color: #f5c542;
+  text-shadow:
+    0 0 4px #000,
+    0 0 8px rgba(255, 215, 0, 0.6);
+
+  transform: rotate(-50deg);
+}
+
+#unoBtn {
+  all: unset;
+  /* 🔥 reset EVERYTHING */
+  box-sizing: border-box;
+  margin-right: -150px;
+  width: 80px;
+  height: 80px;
+
+  background: #ff4040;
+  /* same as red-btn */
+  color: #fff;
+
+  border-radius: 50%;
+  font-size: 15px;
+  font-weight: 900;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.45),
+    inset 3px 0 3px 2px rgba(255, 255, 255, 0.9);
+}
+
+/* ===========================Setting screen============================ */
+#table {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+#centerBox,
+#passBtn,
+#unoBtn,
+#drawPile {
+  pointer-events: auto;
+}
+
+#centerBox {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 360px;
+  background: transparent;
+  backdrop-filter: none;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.center-top {
+  display: flex;
+  justify-content: center;
+}
+
+.center-middle {
+  display: flex;
+  justify-content: center;
+}
+
+.center-bottom {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5%;
+}
+
+.player-zone.top {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+}
+
+.player-zone.left {
+  position: absolute;
+  right: 30%;
+  top: 35%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.player-zone.right {
+  position: absolute;
+  left: 30%;
+  top: 35%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ======================================================= */
+
+
+/* ---- PLAYER HAND ---- */
+.player-hand {
+  position: absolute;
+  bottom: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.exit-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  z-index: 20;
+  background: #ffcc00;
+  color: black;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ----- PLAYER UI BOX ----- */
+.player-box-mini {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
+  padding: 8px 14px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  min-width: 70px;
+  border: 2px solid transparent;
+  transition: 0.2s;
+  overflow: visible;
+  z-index: 50;
+}
+
+.player-box-mini.turn {
+  border-color: #ffcc00;
+  box-shadow: 0 0 10px #ffcc00;
+}
+
+.player-name {
+  font-size: 14px;
+  font-weight: bold;
+  color: rgb(32, 221, 234);
+}
+
+.card-count {
+  font-size: 12px;
+  opacity: 0.8;
+  color: rgb(32, 221, 234);
+}
+
+.my-turn {
+  color: #00ff88;
+  font-weight: bold;
+}
+
+.other-turn {
+  color: #ffcc00;
+}
+
+.player-name-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Countdown number */
+.turn-time {
+  font-size: 12px;
+  font-weight: bold;
+  color: #00ff88;
+}
+
+/* Progress bar */
+.turn-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.turn-bar-fill {
+  height: 100%;
+  width: 100%;
+  background: #00ff88;
+  transition: width 1s linear;
+}
+
+
+
+/* Danger state */
+.turn-bar-fill.danger {
+  background: #ff4444;
+}
+
+/* --------------------------------------------------------------------------------------------------- */
+.card {
+  position: relative;
+  width: 62px;
+  height: 92px;
+  overflow: visible;
+  margin-left: -28px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  font-size: 24px;
+  font-weight: 900;
+  font-family: Poppins, sans-serif;
+  color: #fff;
+  background-clip: padding-box;
+  border-radius: 14px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.55), inset 0 0 0 3px rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, z-index 0.18s;
+}
+
+/* First card no overlap */
+.player-hand .card:first-child {
+  margin-left: 0;
+}
+
+/* ================= UNO COLORS (REALISTIC) ================= */
+/* Red */
+.red-card {
+  background: #e53935;
+}
+
+/* Blue */
+.blue-card {
+  background: #1e88e5;
+}
+
+/* Green */
+.green-card {
+  background: #43a047;
+}
+
+/* Yellow */
+.yellow-card {
+  background: #fdd835;
+  color: #111;
+}
+
+.wild-card {
+  background: black;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.corner {
+  position: absolute;
+  font-size: 13px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 0 4px black;
+  z-index: 9999;
+}
+
+.corner.tl {
+  color: white;
+  top: 6px;
+  left: 6px;
+  z-index: 10;
+}
+
+.corner.br {
+  bottom: 6px;
+  right: 6px;
+  /* transform: rotate(180deg); */
+}
+
+.card-center {
+  position: relative;
+  z-index: 2;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.wild-oval {
+  position: absolute;
+  width: 64%;
+  height: 80%;
+  border-radius: 50%;
+  background: conic-gradient(red 0deg 90deg, yellow 90deg 180deg, green 180deg 270deg, blue 270deg 360deg);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -48%) rotate(25deg) scale(1.1);
+  z-index: 1;
+  border: 1px solid white;
+}
+
+/* ================= COLOR CARD OVAL ================= */
+.color-oval {
+  position: absolute;
+  width: 64%;
+  height: 80%;
+  border-radius: 50%;
+  border: 3px solid white;
+  background: transparent;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -48%) rotate(25deg) scale(1.1);
+
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ================= LEGAL / INTERACTION ================= */
+.legal {
+  transform: scale(1.1);
+  z-index: 10;
+  transform: translateY(-16px) scale(1.05);
+  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.75), inset 0 0 0 3px rgba(255, 255, 255, 1);
+}
+
+/* ================= ILLEGAL ================= */
+.card.illegal {
+  pointer-events: none;
+}
+
+.red-card .corner,
+.blue-card .corner,
+.green-card .corner {
+  color: white;
+}
+
+.yellow-card .corner {
+  color: black;
+  text-shadow: 0 0 2px white;
+}
+
+/* --------------------------------------------------------------------------------------------------------- */
+.turn-timer {
+  position: absolute;
+  top: 140px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffcc00;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 6px 14px;
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+.player-box-mini.active-turn {
+  box-shadow: 0 0 18px rgba(0, 255, 150, 0.8);
+  animation: pulse 1.2s infinite;
+}
+
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.03);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+#passBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* WILD POPUP */
+.wild-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.wild-box {
+  background: #111;
+  padding: 20px 30px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.wild-box h3 {
+  color: white;
+  margin-bottom: 15px;
+}
+
+.wild-colors {
+  display: flex;
+  gap: 15px;
+}
+
+.color-btn {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+.color-btn.red {
+  background: #e53935;
+}
+
+.color-btn.yellow {
+  background: #fbc02d;
+}
+
+.color-btn.green {
+  background: #43a047;
+}
+
+.color-btn.blue {
+  background: #1e88e5;
+}
+
+
+
+.game-countdown {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.hidden {
+  display: none;
+}
+
+.uno-indicator {
+  margin-top: 4px;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  background: red;
+  border-radius: 6px;
+  text-align: center;
+  animation: unoPulse 1s infinite;
+}
+
+@keyframes unoPulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.winner-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.winner-popup.hidden {
+  display: none;
+}
+
+.winner-card {
+  background: #111;
+  border-radius: 16px;
+  padding: 24px 32px;
+  text-align: center;
+  color: white;
+  min-width: 280px;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+  animation: popIn 0.3s ease-out;
+}
+
+.winner-card h2 {
+  margin-bottom: 12px;
+  color: gold;
+}
+
+.winner-card button {
+  margin-top: 16px;
+  padding: 10px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background: gold;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.winner-card button:hover {
+  background: #ffd700;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ---------- MODAL BASE ---------- */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.modal-card {
+  position: relative;
+  width: 90%;
+  max-width: 360px;
+  background: #111;
+  color: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  margin: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  text-align: center;
+}
+
+.modal-card h2 {
+  margin-bottom: 10px;
+}
+
+.modal-card p {
+  opacity: 0.85;
+  margin-bottom: 20px;
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gray-btn {
+  background: #444;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.red-btn {
+  background: #e63946;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.yellow-btn {
+  background: #f4a261;
+  color: #000;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /* 🚫 disable scroll */
+    position: fixed;
+    /* 🔒 lock viewport */
+    inset: 0;
+  }
+
+  body {
+    overscroll-behavior: none;
+    /* 🚫 bounce */
+    touch-action: manipulation;
+  }
+
+
+  /* ---- Center area spacing ---- */
+  .center-area {
+    top: 50%;
+    padding: 10px 12px;
+    gap: 14px;
+  }
+
+  /* ---- Draw + Discard piles ---- */
+  .pile {
+    width: 55px;
+    height: 80px;
+    border-radius: 10px;
+  }
+
+  #discardPile .card {
+    width: 65px;
+    height: 72px;
+    box-shadow:
+      0 4px 10px rgba(0, 0, 0, 0.45),
+      inset 0 0 0 1.5px rgba(255, 255, 255, 0.65);
+  }
+
+  #discardPile .card-center {
+    font-size: 26px;
+  }
+
+  #discardPile .corner {
+    font-size: 14px;
+  }
+
+  #drawPile {
+    box-shadow:
+      0 4px 10px rgba(0, 0, 0, 0.45),
+      inset 0 0 0 1.5px rgba(255, 255, 255, 0.65);
+    margin-left: 25px;
+    width: 50px;
+    height: 70px;
+  }
+
+  /* ---- Deck text ---- */
+  #drawPile .deck-text {
+    font-size: 22px;
+    letter-spacing: 1px;
+  }
+
+  #drawPile .deck-oval {
+    width: 75%;
+    height: 90%;
+  }
+
+  /* ---- Player hand ---- */
+  .player-hand {
+    bottom: 14%;
+    gap: 10px;
+  }
+
+  .card {
+    width: 40px;
+    height: 60px;
+    margin-left: -35px;
+    padding: 4px;
+    font-size: 18px;
+  }
+
+  .card.legal {
+    margin-left: -15px;
+    /* 🔥 stop overlap */
+    z-index: 30;
+    /* 🔥 above all */
+  }
+
+  .player-hand .card {
+    inset: 0 0 0 1.5px rgba(255, 255, 255, 0.7);
+  }
+
+  .card-center {
+    font-size: 18px;
+  }
+
+  .corner {
+    font-size: 11px;
+    top: 4px;
+    left: 4px;
+  }
+
+  .corner.br {
+    top: auto;
+    /* 🔥 REQUIRED */
+    bottom: 4px;
+    left: auto;
+    /* 🔥 SAFETY */
+    right: 4px;
+  }
+
+  /* ---- Ovals ---- */
+  .wild-oval,
+  .color-oval {
+    width: 62%;
+    height: 78%;
+    transform: translate(-50%, -48%) rotate(20deg) scale(1);
+    border: 1.2px solid white;
+  }
+
+  .uno_pass button {
+    width: 95px;
+  }
+
+  /* ---- Player mini boxes ---- */
+  .player-box-mini {
+    padding: 6px 10px;
+    min-width: 60px;
+  }
+
+  .player-name {
+    font-size: 12px;
+  }
+
+  .card-count {
+    font-size: 11px;
+  }
+
+  /* ---- Bar ---- */
+  .my-turn-bar {
+    bottom: 200px;
+    height: 6px;
+  }
+
+  /* 11+ cards */
+  .player-hand .card:nth-child(n+11) {
+    margin-left: -18px;
+    transform: scale(0.92);
+  }
+
+  /* 13–14 cards */
+  .player-hand .card:nth-child(n+13) {
+    margin-left: -14px;
+    transform: scale(0.88);
+  }
+
+  .player-hand .card {
+    box-shadow:
+      0 4px 10px rgba(0, 0, 0, 0.45),
+      inset 0 0 0 1.5px rgba(255, 255, 255, 0.65);
+  }
+
+  /* --------------------------------------------------------------------------------------- */
+  #centerBox {
+    position: absolute;
+    bottom: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 360px;
+    background: transparent;
+    backdrop-filter: none;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* Discard */
+  .center-top {
+    display: flex;
+    justify-content: center;
+    margin-top: 20%;
+  }
+
+  /* Pass button under discard */
+  .center-middle {
+    display: flex;
+    justify-content: center;
+  }
+
+  .center-bottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 14px;
+    margin-top: 10%;
+  }
+
+  /* Hide pass when disabled */
+  #passBtn:disabled {
+    display: none;
+  }
+
+  /* -----Player Box Placement------------- */
+  .player-zone.top {
+    width: fit-content;
+    top: 20%;
+  }
+
+  .player-zone.left {
+    right: 5%;
+    top: 40%;
+  }
+
+  .player-zone.right {
+    width: fit-content;
+    left: 5%;
+    top: 40%;
+  }
+
+  #unoBtn {
+    all: unset;
+    /* 🔥 reset EVERYTHING */
+    box-sizing: border-box;
+    margin-right: 25px;
+    width: 44px;
+    height: 44px;
+
+    background: #ff4040;
+    /* same as red-btn */
+    color: #fff;
+
+    border-radius: 50%;
+    font-size: 15px;
+    font-weight: 900;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
+
+    box-shadow:
+      0 4px 10px rgba(0, 0, 0, 0.45),
+      inset 2px 0 2px 1px rgba(255, 255, 255, 0.9);
+  }
+
+  /* #discardPile {
+    position: fixed;          
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    z-index: 50;
+  } */
+}

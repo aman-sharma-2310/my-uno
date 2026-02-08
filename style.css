@@ -1,0 +1,208 @@
+/* Background */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Poppins, sans-serif;
+    background: #111;
+    overflow-x: hidden;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* Blurred UNO Cards BG */
+/* REAL UNO CARDS BACKGROUND */
+.uno-bg {
+    position: fixed;
+    inset: 0;
+    background-image: url("./assets/uno-bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    filter: blur(4px) brightness(0.75);
+    opacity: 0.35;
+    z-index: -2;
+}
+
+/* DARK OVERLAY for visibility */
+.dark-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: -1;
+}
+
+/* User box */
+.user-box {
+    position: fixed;
+    top: 10px;
+    right: 12px;
+    color: white;
+    font-size: 14px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    z-index: 10;
+}
+
+.change-btn {
+    background: #ffcc00;
+    border: none;
+    padding: 6px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+/* Center UNO Card */
+.uno-card {
+    width: 90%;
+    max-width: 360px;
+    margin: 90px auto 40px;
+    padding: 22px;
+    border-radius: 18px;
+    background: transparent;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    border: 1px solid #2ecc71;
+}
+
+/* Title */
+.title {
+    color: whitesmoke;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+/* Buttons */
+.main-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin: 10px 0;
+    font-weight: 600;
+}
+
+.red-btn {
+    background: #e63946;
+}
+
+.yellow-btn {
+    background: #f1c40f;
+    color: black;
+}
+
+.green-btn {
+    background: #2ecc71;
+}
+
+.blue-btn {
+    background: #2980b9;
+}
+
+/* Hidden sections */
+.hidden {
+    display: none;
+}
+
+.input-box {
+    margin-top: 10px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    margin: 6px 0;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    box-sizing: border-box;
+}
+
+/* Note text */
+.note {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #888686;
+}
+.app-footer {
+    position: fixed;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.75);
+    z-index: 5;
+    pointer-events: auto;
+}
+
+.app-footer p {
+    margin: 4px 0;
+}
+
+.app-footer a {
+    color: #ffcc00;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.app-footer a:hover {
+    text-decoration: underline;
+}
+
+.app-footer .disclaimer {
+    font-size: 10px;
+    opacity: 0.6;
+}
+
+/* =========================
+   MOBILE (PHONES ONLY)
+   ========================= */
+@media (max-width: 768px) {
+
+    body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        min-height: 100%;
+        /* 🔒 no scroll */
+    }
+
+    .app-footer {
+        position: static;
+        padding: 12px 0 8px;
+        bottom: 0;
+    }
+    .uno-bg {
+        filter: blur(5px) brightness(0.65);
+        transform: scale(1.08);
+    }
+
+    .user-box {
+        top: 12px;
+        right: 12px;
+        padding: 6px 10px;
+        border-radius: 10px;
+        z-index: 20;
+    }
+
+    .uno-card {
+        width: 70%;
+        margin-left: 9%;
+        margin-top: 50%;
+        padding: 28px 22px;
+        border-radius: 20px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNO Multiplayer - Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Blurred UNO cards background -->
+    <div class="uno-bg"></div>
+    <div class="dark-overlay"></div>
+    <!-- Username (top right) -->
+    <div class="user-box">
+        <span id="username"></span>
+        <button class="change-btn" id="changeNameBtn">✎</button>
+    </div>
+
+    <!-- Main UNO Card -->
+    <div class="uno-card">
+
+        <h1 class="title">UNO Multiplayer</h1>
+
+        <!-- CREATE ROOM -->
+        <button class="main-btn red-btn" id="showCreateBtn">🎮 Create Room</button>
+
+        <div id="createBox" class="hidden input-box">
+            <input type="text" id="hostPassword" placeholder="Set Room Password" maxlength="6" inputmode="numeric"
+                oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+
+            <button class="main-btn green-btn" id="createRoomBtn">Create</button>
+        </div>
+
+        <!-- JOIN ROOM -->
+        <button class="main-btn yellow-btn" id="showJoinBtn">🔗 Join Room</button>
+
+        <div id="joinBox" class="hidden input-box">
+            <input type="text" id="roomCode" placeholder="Room ID" maxlength="6" inputmode="numeric"
+                oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+
+            <input type="text" id="roomPassword" placeholder="Password" maxlength="6" inputmode="numeric"
+                oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+
+            <button class="main-btn blue-btn" id="joinRoomBtn">Join</button>
+        </div>
+
+        <p class="note">No login required • Play instantly!</p>
+
+    </div>
+    <footer class="app-footer">
+        <p>
+            Developed by <strong>Aman</strong>
+        </p>
+
+        <p>
+            Found a bug or have feedback?
+            <a href="mailto:crazyaman2310@gmail.com">Report here</a>
+        </p>
+
+        <p class="disclaimer">
+            This is a fan-made project for learning purposes.
+            UNO® is a registered trademark of Mattel.
+        </p>
+    </footer>
+
+    <script src="firebase-config.js" type="module"></script>
+    <script src="app.js" type="module"></script>
+
+</body>
+
+</html>

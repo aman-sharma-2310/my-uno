@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My UNO - Game</title>
+    <link rel="stylesheet" href="game.css">
+</head>
+
+
+<body>
+    <div class="uno-bg"></div>
+    <div class="dark-overlay"></div>
+
+    <!-- EXIT BUTTON (Top Right) -->
+    <div>
+        <p id="roomIdDisplay"></p>
+        <button id="leaveBtn" class="yellow-btn exit-btn">Exit</button>
+    </div>
+    <!-- starting Timer -->
+    <div id="gameCountdown" class="game-countdown hidden"></div>
+    <div id="table">
+
+        <div id="topPlayers" class="player-zone top"></div>
+        <div id="leftPlayers" class="player-zone left"></div>
+        <div id="rightPlayers" class="player-zone right"></div>
+
+        <!-- CENTER -->
+        <div id="centerBox" class="center-area card-box">
+            <div class="center-top">
+                <div id="discardPile" class="pile"></div>
+            </div>
+            <div class="center-middle">
+                <button id="passBtn" class="red-btn">Pass</button>
+            </div>
+
+            <div class="center-bottom">
+                <div id="drawPile" class="pile">
+                    <div class="deck-oval"></div>
+                    <div class="deck-text">UNO</div>
+                </div>
+                <button id="unoBtn" class="red-btn uno-btn">UNO!</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MY TURN TIMER BAR -->
+    <div id="myTurnBar" class="my-turn-bar hidden">
+        <div id="myTurnBarFill" class="my-turn-bar-fill"></div>
+    </div>
+    <!-- PLAYER HAND -->
+    <div id="playerHand" class="player-hand"></div>
+
+    <!-- WILD COLOR POPUP -->
+    <div id="wildPopup" class="wild-popup hidden">
+        <div class="wild-box">
+            <h3>Select Color</h3>
+            <div class="wild-colors">
+                <button class="color-btn red" data-color="R"></button>
+                <button class="color-btn yellow" data-color="Y"></button>
+                <button class="color-btn green" data-color="G"></button>
+                <button class="color-btn blue" data-color="B"></button>
+            </div>
+        </div>
+    </div>
+    <div id="winnerPopup" class="winner-popup hidden">
+        <div class="winner-card">
+            <h2 id="winnerTitle">🏆 Winner</h2>
+            <p id="winnerText"></p>
+            <button id="winnerOkBtn">OK</button>
+        </div>
+    </div>
+    <!-- EXIT MODAL -->
+    <div id="exitModal" class="modal hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-card">
+            <h2 id="exitTitle">Leave Room</h2>
+            <p id="exitText">Are you sure you want to leave?</p>
+
+            <div class="modal-actions">
+                <button id="exitCancelBtn" class="gray-btn">Cancel</button>
+
+                <!-- normal player -->
+                <button id="exitLeaveBtn" class="red-btn hidden">
+                    Leave Room
+                </button>
+
+                <!-- host options -->
+                <button id="exitDeleteBtn" class="red-btn hidden">
+                    Delete Room
+                </button>
+                <button id="exitHostLeaveBtn" class="yellow-btn hidden">
+                    Leave & Transfer Host
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="game.js"></script>
+
+</body>
+
+</html>
